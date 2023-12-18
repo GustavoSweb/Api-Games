@@ -52,4 +52,20 @@ Router.delete("/game/:id", async (req, res) => {
     res.sendStatus(500);
   }
 });
+Router.put("/game/:id", async (req, res) => {
+  const { id } = req.params;
+  const { year, price } = req.body;
+
+  if (isNaN(id)) return res.sendStatus(400);
+
+  try {
+    if (isNaN(year) || isNaN(price)) return res.sendStatus(400);
+    const game = await Games.update(req.body, { where: { id } });
+    if (game == 0) return res.sendStatus(404);
+
+    res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
 module.exports = Router;
