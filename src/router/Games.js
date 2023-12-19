@@ -2,6 +2,9 @@ const express = require("express");
 const Router = express.Router();
 const Games = require("../models/Games");
 
+const auth = require("../middlewares/Auth")
+
+
 Router.get("/games", async (req, res) => {
   try {
     const games = await Games.findAll();
@@ -26,7 +29,7 @@ Router.get("/game/:id", async (req, res) => {
   }
 });
 
-Router.post("/game", async (req, res) => {
+Router.post("/game",auth, async (req, res) => {
   const { title, year, price } = req.body;
 
   if (!title || !year || !price) return res.sendStatus(400);
@@ -38,7 +41,7 @@ Router.post("/game", async (req, res) => {
     res.sendStatus(500);
   }
 });
-Router.delete("/game/:id", async (req, res) => {
+Router.delete("/game/:id",auth, async (req, res) => {
   const { id } = req.params;
 
   if (isNaN(id)) return res.sendStatus(400);
@@ -52,7 +55,7 @@ Router.delete("/game/:id", async (req, res) => {
     res.sendStatus(500);
   }
 });
-Router.put("/game/:id", async (req, res) => {
+Router.put("/game/:id",auth, async (req, res) => {
   const { id } = req.params;
   const { year, price } = req.body;
 

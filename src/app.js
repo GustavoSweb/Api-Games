@@ -7,6 +7,8 @@ const bodyParser = require("body-parser")
 const database = require("./config/database/database")
 const Games = require("./models/Games")
 const User = require("./models/User")
+
+
 /*
 User.create({
     name:"Gustavo",
