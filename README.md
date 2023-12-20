@@ -9,7 +9,7 @@ Nenhum
 ##### OK! 200
 Tudo ocorreu certo , e você ira receber a lista de games
 Exemplo de resposta:
-``` json
+```
 [
     {
         "id": 2,
