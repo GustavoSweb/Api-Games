@@ -8,8 +8,7 @@ const auth = require("../middlewares/Auth")
 Router.get("/games", async (req, res) => {
   try {
     const games = await Games.findAll();
-    res.statusCode = 200;
-    res.json(games);
+    res.status(200).json(games);
   } catch (err) {
     res.sendStatus(500);
   }
@@ -23,7 +22,7 @@ Router.get("/game/:id", async (req, res) => {
   try {
     const game = await Games.findByPk(id);
     if (!game) return res.sendStatus(404);
-    res.json(game);
+    res.status(200).json(game);
   } catch (err) {
     res.sendStatus(500);
   }
