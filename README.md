@@ -1,15 +1,23 @@
 # API de Games
+
 ## Endpoints
+
 ## GET /games
+
 Retorna a lista de games da base de dados
 
 #### Parâmetros
+
 Nenhum
+
 #### Respostas
+
 ##### OK! 200
+
 Tudo ocorreu certo , e você ira receber a lista de games
 Exemplo de resposta:
-``` json
+
+```
 [
     {
         "id": 2,

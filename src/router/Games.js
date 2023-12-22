@@ -2,14 +2,17 @@ const express = require("express");
 const Router = express.Router();
 const Games = require("../models/Games");
 
-const auth = require("../middlewares/Auth")
-
+const auth = require("../middlewares/Auth");
 
 Router.get("/games", async (req, res) => {
   try {
     const games = await Games.findAll();
-    res.statusCode = 200;
-    res.json(games);
+
+    
+      
+    
+
+    res.status(200).json(games);
   } catch (err) {
     res.sendStatus(500);
   }
@@ -22,14 +25,19 @@ Router.get("/game/:id", async (req, res) => {
 
   try {
     const game = await Games.findByPk(id);
+    const links = {
+      href:`http://localhost:8081/game/${game.id}`,
+      method: "DELETE",
+      rel:"game_delete"
+    }
     if (!game) return res.sendStatus(404);
-    res.json(game);
+    res.status(200).json({game, links});
   } catch (err) {
     res.sendStatus(500);
   }
 });
 
-Router.post("/game",auth, async (req, res) => {
+Router.post("/game", auth, async (req, res) => {
   const { title, year, price } = req.body;
 
   if (!title || !year || !price) return res.sendStatus(400);
@@ -41,7 +49,7 @@ Router.post("/game",auth, async (req, res) => {
     res.sendStatus(500);
   }
 });
-Router.delete("/game/:id",auth, async (req, res) => {
+Router.delete("/game/:id", auth, async (req, res) => {
   const { id } = req.params;
 
   if (isNaN(id)) return res.sendStatus(400);
@@ -55,7 +63,7 @@ Router.delete("/game/:id",auth, async (req, res) => {
     res.sendStatus(500);
   }
 });
-Router.put("/game/:id",auth, async (req, res) => {
+Router.put("/game/:id", auth, async (req, res) => {
   const { id } = req.params;
   const { year, price } = req.body;
 
